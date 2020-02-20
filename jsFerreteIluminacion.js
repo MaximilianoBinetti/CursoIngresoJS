@@ -9,45 +9,98 @@ E.	Si el importe final con descuento suma más de $120  se debe sumar un 10% de 
 
  */
 function CalcularPrecio () 
-{  
-	var CL;
-	var precioBruto;
+{
+	var PrecioBruto;
+	var PrecioUnidad;
 	var PrecioFinal;
+	var descuento;
+	var Cantidad;
 	var marca;
+	var IIBB;
+	var PrecioImpuesto;
+
+	PrecioBruto = parseInt(PrecioBruto); 
+
+	Cantidad = document.getElementById('Cantidad').value;
 	
+	marca = document.getElementById('Marca').value;
+	
+	descuento = 0; 
 
-	CL = document.getElementById('Cantidad').value;
-	CL = parseInt(CL);
+	PrecioUnidad = 35;
 
-	precioBruto = CL * 35;
-
-	if (CL > 5) //cantidad mayor a 5
-
+	if(Cantidad > 5)
 	{
-
-		PrecioFinal = precioBruto - precioBruto * 50 / 100;
-		document.getElementById('precioDescuento').value = PrecioFinal;
+		descuento = 50
 	}
-	else 
+
+	else
 	{
-		if(CL == 5) //cantidad igual a 5
+		if(Cantidad == 5)
 		{
-			if(marca == "ArgentinaLuz")
-			{
-				PrecioFinal = precioBruto - precioBruto * 40 / 100;
-				document.getElementById('precioDescuento').value = PrecioFinal;
+					if(marca == "ArgentinaLuz")
+					{
+						descuento = 40;
+					}
+						else
+								{
+									descuento = 30;
+								}
+		}
+		else
+		{
+				if ((Cantidad == 4 && marca == "ArgentinaLuz") || (marca == "FelipeLamparas")) 
+				{
+					descuento= 25;
+
 
 				}
 				else 
 				{
-					if(marca != "ArgentinaLuz")
-					{
-						PrecioFinal = precioBruto - precioBruto * 30 /100;
-						document.getElementById('precioDescuento').value = PrecioFinal;
-					}
-
+					descuento = 20;
 				}
-			}
+	    }
 
-    }
- }
+	   
+	    
+	    if(Cantidad == 3)
+	    {
+	    	if(marca == "ArgentinaLuz")
+	    	{
+	    		descuento = 15;
+	    	}
+	    	else 
+	    			{
+	    				if(marca =="FelipeLamparas")
+	    				{
+	    					descuento = 10;
+	    				}
+	    				else 
+	    				{
+	    					descuento = 5
+	    				}
+	    			}
+	    
+	    
+	    }
+
+
+	 
+	
+	    
+		
+	}
+	IIBB = 10;
+	
+  	PrecioBruto = PrecioUnidad * Cantidad;
+	PrecioFinal = PrecioBruto - PrecioBruto * descuento /100;
+	document.getElementById('precioDescuento').value = PrecioFinal;
+	PrecioImpuesto = PrecioFinal+PrecioFinal * IIBB /100;
+
+	if( descuento > 1 && PrecioFinal > 120)
+	{
+		
+		alert("IIBB USTED PAGÓ " + 	PrecioImpuesto);
+	}
+
+}
